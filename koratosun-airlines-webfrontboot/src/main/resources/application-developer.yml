@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: webfrontboot
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL:http://192.168.2.109:8888/}
+  web:
+    resources:
+      static-locations: classpath:/assets/

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+   <Properties>
+        <Property name="LOG_PATTERN">%d{HH:mm:ss.SSS--dd-MM} [%t] %-5level %logger{36} - %msg%n</Property>
+         <Property name="APP_LOG_ROOT">C:/logAplicaciones/gestion-productividad</Property>
+    </Properties>
+  
+  
+  
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+	    
+        <RollingFile name="FileDebug" fileName="${APP_LOG_ROOT}/logs/gestion-productividad-debug.log"
+            filePattern="${APP_LOG_ROOT}/logs/gestion-productividad-debug-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="ACCEPT"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5000KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="FileInfo" fileName="${APP_LOG_ROOT}/logs/gestion-productividad-info.log"
+            filePattern="${APP_LOG_ROOT}/logs/gestion-productividad-info-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="INFO" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5000KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>	
+        <RollingFile name="FileError" fileName="${APP_LOG_ROOT}/logs/gestion-productividad-error.log"
+            filePattern="${APP_LOG_ROOT}/logs/gestion-productividad-error-%d{yyyy-MM-dd}-%i.log" >
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5000KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>	    
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="es.gob.educacion.centrosconcertados" level="debug" additivity="false">
+			<AppenderRef ref="FileDebug" />
+			<AppenderRef ref="FileInfo" />
+			<AppenderRef ref="FileError" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.springframework" level="info" additivity="false">
+			<AppenderRef ref="FileDebug" />
+			<AppenderRef ref="FileInfo" />
+			<AppenderRef ref="FileError" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.hibernate" level="error" additivity="false">
+			<AppenderRef ref="FileDebug" />
+			<AppenderRef ref="FileInfo" />
+			<AppenderRef ref="FileError" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="com.fasterxml.jackson" level="debug" additivity="false">
+			<AppenderRef ref="FileDebug" />
+			<AppenderRef ref="FileInfo" />
+			<AppenderRef ref="FileError" />
+			<AppenderRef ref="Console" />
+		</Logger>		
+		<Root level="error">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

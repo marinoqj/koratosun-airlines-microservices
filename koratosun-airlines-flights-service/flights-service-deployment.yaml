@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flights-service
+spec:
+  selector:
+    matchLabels:
+      app: koratosun-airlines
+      tier: microservices
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: koratosun-airlines
+        tier: microservices
+    spec:
+      containers:
+      - image: marinoqj/kair-flights:1.0.0
+        imagePullPolicy: Always
+        name: flights-service
+        ports:
+        - containerPort: 8092
+          protocol: TCP
+
+
+

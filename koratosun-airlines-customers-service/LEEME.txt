@@ -1,0 +1,28 @@
+### Construcción y arranque de una imagen de docker ###
+
+1.- Si no se ha compilado nunca el proyecto, es decir, si no existe el .jar dentro de target, ejecutar:
+	mvn clean package
+
+2.- Desde el directorio en el que está el Dockerfile ejecutar:
+
+	docker build -t [nombre repositorio]/[nombre imagen]:[version de la imagen] .  (ojo al punto final que si no no funciona)
+
+	Por ejemplo: docker build -t marinoqj/kair-customers:1.0 .  (ojo al punto final)
+
+3.- Comprobamos que la imagen está creada correctamente (si no da ningún error se supone que se creó bien, pero para asegurarse)
+
+	docker image ls
+
+4.- Arrancamos la imagen (una vez arrancada ya es un contenedor)
+
+	docker run -d -p [puerto del host]:[puerto del contenedor] marinoqj/kair-customers:1.0
+
+	docker run -d -p 8888:8080 marinoqj/kair-customers:1.0
+
+5.- Para comprobar que está corriendo
+
+	docker container ls / docker ps
+
+6.- Para parar el contenedor
+
+	docker stop [id del contenedor / nombre del contenedor]

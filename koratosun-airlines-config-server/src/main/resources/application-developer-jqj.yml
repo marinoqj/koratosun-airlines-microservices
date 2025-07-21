@@ -1,0 +1,14 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${GIT_URI:http://192.168.2.106/golem-developers/koratosun-airlines-microservices-config.git}
+          username: julio
+          password: admin1234
+          default-label: developer-jqj

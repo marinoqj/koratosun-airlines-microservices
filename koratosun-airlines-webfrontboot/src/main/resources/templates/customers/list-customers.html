@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head('List of customers')">
+
+
+</head>
+
+<body>
+
+<header th:replace="fragments/header :: header"></header>
+
+
+<main>
+	<section id="customers">
+		<div class="container" style="min-height: 60vh">
+
+<br>
+<br>
+<br>
+<br>
+
+
+<form name="formulario" method="post">
+	<input type="hidden" name="idCustomer"/>
+</form>
+
+<br>
+<br>
+
+<div class="row">
+	<div class="col-md-12">
+				<h4 class="text-secondary"><i class="fas fa-users"></i>&nbsp;&nbsp;List of customers</h4>
+	</div>
+</div>
+<hr class="texto-azul">
+
+<div class="row" th:if="${message != null}">
+	<div class="col-md-12 text-center">			
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<span th:text="${message}"></span></b>
+		</div>
+	</div>
+</div>
+<br>
+
+
+
+<div th:classappend="${customers!=null and !customers.isEmpty() ? 'block' : 'd-none'}">
+
+
+<div class="row">
+		<table class="table table-hover table-striped table-sm">
+			<caption>List of customers</caption>
+			<thead class="table-light">
+				<tr>
+					<th scope="col">Name</th>
+  			        <th scope="col">First Surname</th>
+				    <th scope="col">Second Surname</th>
+				    <th scope="col">Address</th>
+				    <th scope="col">Municipality</th>
+				    <th scope="col">Postal code</th>
+				    <th scope="col">Phone</th>
+					<th width="10%">&nbsp;</th>
+			</thead>
+			<tbody>
+				<tr th:each="customer : ${customers}">
+						<td th:text="${customer.name}" />
+						<td th:text="${customer.firstSurname}" />
+						<td th:text="${customer.secondSurname}" />
+						<td th:text="${customer.address}" />
+						<td th:text="${customer.municipality}" />
+						<td th:text="${customer.postalCode}" />
+						<td th:text="${customer.phone}" />
+				        <td>
+					      	<a href="#" th:onclick="javascript:editCustomer([[${customer.idCustomer}]])"><i class="fas fa-user-edit fa-lg text-success" data-toggle="tooltip" title="Editar"></i></a>
+					      	&nbsp;&nbsp;&nbsp;&nbsp;			      	
+					      	<a href="#" th:onclick="javascript:showConfirm([[${customer.idCustomer}]])"><i class="fa fa-trash fa-lg text-danger" data-toggle="tooltip" title="Delete"></i></a>
+				      	</td> 																							
+				</tr>				
+			</tbody>
+		</table>
+</div>
+
+</div>
+
+
+
+<div th:classappend="${customers == null or customers.isEmpty()  ? 'block' : 'd-none'}">
+
+	<br><br><br><br><br><br>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<div class="alert alert-warning alert-dismissible fade show"
+							role="alert">
+							<span>There are no customers</span>
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+<div class="row">
+	<div class="col-md-10">&nbsp;</div>
+	<div class="col-md-2 text-end">
+			<a th:href="@{/viewCreateCustomer}" class="btn btn-secondary btn-sm">New customer</a>
+	</div>
+</div>
+
+<!-- Mensaje Baja Modal -->
+<div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert text-white text-left" style="background-color: red;">
+      	<h5 class="modal-title text-white"><i class="fas fa-exclamation-circle fa-lg"></i>&nbsp;Attention</h5>
+      </div>    
+      <div class="modal-body">
+         <p class="text-center">You are about to delete the user. Do you wish to continue?</p>
+      </div>
+      <div class="modal-footer">         
+         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancel</button>
+         <a href="#" role="button" id="buttonAccept" class="btn btn-danger btn-sm"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;Accept</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Confirm Modal -->
+
+</div>
+<!-- Fin container -->
+<br>
+	</section>
+</main>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<script type="text/javascript">
+
+function editCustomer(idCustomer){
+	document.formulario.idCustomer.value = idCustomer;
+	document.formulario.action="editCustomer";
+	document.formulario.submit();
+}
+
+function deleteCustomer(idCustomer){
+	document.formulario.idCustomer.value = idCustomer;
+	document.formulario.action="deleteCustomer";
+	document.formulario.submit();
+}
+
+function showConfirm(idCustomer) {
+	var message = "";
+	$("#buttonAccept").click(function() {
+		deleteCustomer(idCustomer);
+	});
+    $('#confirmModal').modal('show');
+}
+
+</script>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+
+</body>
+</html>

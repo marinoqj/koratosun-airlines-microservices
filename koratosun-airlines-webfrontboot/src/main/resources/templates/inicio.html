@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head('Koratosun Airlines')">
+
+</head>
+
+<body class="index-page">
+
+	<header th:replace="fragments/header :: header"></header>
+
+	<main class="main">
+
+		<!-- Flight Search Section -->
+		<section id="home" class="flight-search section dark-background">
+
+			<img th:src="@{img/airplane-bg.jpg}" alt="" data-aos="fade-in">
+
+			<!-- search flights -->
+			<div class="container">
+				<div class="row g-5">
+					<div class="col-lg-6">
+						<div class="bg-danger rounded-4 p-5" style="--bs-bg-opacity: .3;">
+							<h4 class="text-white mb-4">SEARCH FLIGHTS<i class="bi bi-airplane px-3"></i></h4>
+							<form method="post" th:action="@{/loadConnections}" th:id="formularioInicio">
+								<input type="hidden" id="origin" name="origin" value="" />
+								<input type="hidden" id="searchRouteConnectionUrl" th:value="@{/searchRouteConnection}" />
+								<div class="row g-3">
+									<div class="col-12">
+										<select class="form-select" aria-label="Select Airport" id="departure" name="departure" onchange="performSubmitWithOrigin(this.value)">
+											<option th:selected="${departureSelected == null}" value="">Select departure airport</option>
+											<!-- Iteración sobre la lista de destinations -->
+											<th:block th:each="destination : ${destinations}">
+												<option th:value="${destination.codDestination}"
+														th:text="${destination.city + ' (' + destination.codDestination + ')'}"
+														th:selected="${destination.codDestination == departureSelected}">
+												</option>
+											</th:block>
+										</select>
+									</div>
+									<div class="col-12">
+										<select class="form-select" aria-label="Select Airport" id="arrival" name="arrival" th:disabled="${#lists.isEmpty(connections)}">
+											<option th:text="${messageOpciones}" selected="" value=""/>
+											<!-- Iteración sobre la lista de connections -->
+											<th:block th:each="connection : ${connections}">
+												<option th:value="${connection.destination.codDestination}"
+														th:text="${connection.destination.city + ' (' + connection.destination.codDestination + ')'}" />
+											</th:block>
+										</select>
+									</div>
+									<input type="hidden" id="departureCityAirport" name="departureCityAirport" value="">
+									<input type="hidden" id="arrivalCityAirport" name="arrivalCityAirport" value="">
+									<div class="col-12">
+										<div class="input-group">
+											<div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+												<span class="ms-1 text-danger">Departing</span>&nbsp;<i class="bi bi-arrow-right text-danger"></i>
+											</div>
+											<input class="form-control" type="date" id="departingTime" name="departingTime">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="input-group">
+											<div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+												<i class="bi bi-arrow-left text-danger"></i><span class="ms-1 text-danger">&nbsp;Returning</span>
+											</div>
+											<input class="form-control" type="date" id="arrivingTime" name="arrivingTime">
+										</div>
+									</div>
+									<div class="col-12">
+										<button type="button" class="btn btn-danger w-100 py-2"
+												onclick="searchRouteConnection()">Find Routes</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
+						<div class="text-start">
+							<h1 class="display-5 text-white">Get 30% off your first flight and earn points for each additional flight</h1>
+							<p>Fly with us. To infinity and beyond!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Mensaje Modal -->
+			<div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header alert text-white text-left" style="background-color: orange;">
+							<h5 class="modal-title text-white"><i class="fas fa-triangle-exclamation fa-lg"></i>&nbsp;Check for the following errors:</h5>
+						</div>
+						<div class="modal-body text-primary">
+							<p class="text-left text-danger" id="alert-message" style="font-size: 1rem"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ./ Confirm Modal -->
+
+		</section>
+		<!-- ./Flight Search Section -->
+
+	</main>
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+
+	<script>
+
+		function performSubmitWithOrigin(valor) {
+			if (valor) {
+				document.getElementById("origin").value = valor;
+				document.getElementById("formularioInicio").submit();
+			}
+		}
+
+		function validate() {
+			let departureIsValid = (document.getElementById("departure").value !== "");
+			let arrivalIsValid = (document.getElementById("arrival").value !== "");
+
+			let departingTime = document.getElementById("departingTime").value;
+			let arrivingTimeTime = document.getElementById("arrivingTime").value;
+
+			let datesAreValid = false;
+
+			let departingTimeIsValid = (departingTime !== "");
+			let arrivingTimeTimeIsValid = (arrivingTimeTime !== "")
+
+			let areThereDates = departingTimeIsValid && arrivingTimeTimeIsValid;
+
+			if (areThereDates) {
+				const startDate = new Date(departingTime);
+				const endDate = new Date(arrivingTimeTime);
+
+				if (startDate <= endDate) {
+					datesAreValid = true;
+				}
+			}
+
+			if (!(departureIsValid && arrivalIsValid && datesAreValid)) {
+				let modalText = "";
+
+				if (!departureIsValid) {
+					modalText = modalText + "- Departure airport is not selected\n";
+				}
+
+				if (!arrivalIsValid) {
+					modalText = modalText + "- Arrival airport is not selected\n";
+				}
+
+				if (!areThereDates) {
+					modalText = modalText + "- Please select dates for your flight\n";
+				}
+
+				if (!datesAreValid && areThereDates) {
+					modalText = modalText + "- Return date cannot be earlier than departure date\n";
+				}
+
+				document.getElementById("alert-message").innerText = modalText;
+
+				$('#confirmModal').modal('show');
+			}
+
+			return departureIsValid && arrivalIsValid && datesAreValid;
+		}
+
+
+		function searchRouteConnection() {
+			if (validate()) {
+				let selectArrival = document.getElementById("arrival");
+				let textoArrival = selectArrival.options[selectArrival.selectedIndex].text;
+				document.getElementById("arrivalCityAirport").value = textoArrival.split("(")[0].trim();
+
+				let selectDeparture = document.getElementById("departure");
+				let textoDeparture = selectDeparture.options[selectDeparture.selectedIndex].text;
+				document.getElementById("departureCityAirport").value = textoDeparture.split("(")[0].trim();
+
+				const url = document.getElementById('searchRouteConnectionUrl').value;
+				const formulario = document.getElementById('formularioInicio');
+				formulario.action = url;
+				formulario.submit();
+			}
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" media="all" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap-datepicker.min.css}" media="all" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/estilo.css}" media="all" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/all.min.css}" media="all" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}" media="all" />
+
+</head>
+
+<body>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container" style="min-height:90vh">
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Test</th>
+			<th>Resultado</th>
+			<th>Información</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Conexión a bbdd</td>
+		<th:block th:if="${upBBDD}">
+			<td style="background-color:green;">OKtest</td>
+			<td>Conexión correcta</td>
+		</th:block>
+		<th:block th:if="${!upBBDD}">
+			<td style="background-color:red;">KOtest</td>
+			<td>Fallo en la conexión con BBDD</td>
+		</th:block>		
+	</tr>
+</table>
+
+</div>
+
+</body>
+</html>

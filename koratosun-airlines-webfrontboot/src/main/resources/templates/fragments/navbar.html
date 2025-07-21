@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+
+<!-- Menú -->
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+	<div class="container position-relative d-flex align-items-center">
+
+		<a th:href="@{/inicio}" class="logo d-flex align-items-center me-auto me-xl-0">
+			<img th:src="@{img/logo.png}" alt="KoratoSun Airlines">
+			<h1 class="sitename">Koratosun Airlines</h1><span>.</span>
+		</a>
+
+		<nav id="navmenu" class="navmenu">
+			<ul>
+				<li><span class="px-3">&nbsp;</span></li>
+				<li><a th:href="@{/inicio}#flight-search" class="active">Home</a></li>
+				<li><a th:href="@{/inicio}#popular-routes">Popular Routes</a></li>
+				<li><a th:href="@{/listCustomers}">Customers</a></li>
+				<li><a th:href="@{/inicio}#contact">Contact</a></li>
+				<li><span class="px-5 mx-5">&nbsp;</span></li>
+				<li class="dropdown"><a href="#"><span>User<i class="fas fa-user-circle"></i></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+					<ul>
+						<li><a href="#"><span class="text-uppercase text-danger">Pepe Soplillo</span></a></li>
+						<li><a th:href="@{/verCambiarPassword}">Change Password</a></li>
+						<li><a th:href="@{/logout}">Logout <i class="fas fa-power-off text-danger"></i></a></li>
+					</ul>
+				</li>
+			</ul>
+			<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+		</nav>
+
+	</div>
+</header>
+
+<!-- FIN Menú -->
+
+</body>
+</html>

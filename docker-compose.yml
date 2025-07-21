@@ -1,0 +1,94 @@
+services:
+  config-server:
+    image: ${USUARIO}/kair-config:${TAG_CONFIG}
+    container_name: config-server
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-I", "http://config-server:8888"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+     - 8888:8888
+
+  discovery-server:
+    image: ${USUARIO}/kair-discovery:${TAG_DISCOVERY}
+    container_name: discovery-server
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://discovery-server:8761"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    depends_on:
+      config-server:
+        condition: service_healthy
+    ports:
+     - 8761:8761
+
+  customers-service:
+    image: ${USUARIO}/kair-customers:${TAG_CUSTOMERS}
+    container_name: customers-service
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+    ports:
+    - 8091:8091
+
+  flights-service:
+    image: ${USUARIO}/kair-flights:${TAG_FLIGHTS}
+    container_name: flights-service
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+    ports:
+     - 8090:8090
+
+  api-gateway:
+    image: ${USUARIO}/kair-gateway:${TAG_GATEWAY}
+    container_name: api-gateway
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+    ports:
+     - 8080:8080
+
+  webfrontboot:
+    image: ${USUARIO}/kair-webfrontboot:${TAG_WEBFRONTBOOT}
+    container_name: webfrontboot
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      config-server:
+        condition: service_healthy
+    ports:
+      - 8877:8877
+
+
+

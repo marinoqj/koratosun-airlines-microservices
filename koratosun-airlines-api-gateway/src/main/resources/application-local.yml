@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+  cloud:
+    gateway:
+      default-filters:
+        - name: Retry
+          args:
+            retries: 1
+            statuses: SERVICE_UNAVAILABLE
+            methods: POST
+      routes:
+        - id: customers-service
+          uri: lb://customers-service
+          predicates:
+            - Path=/api/customers/**
+          filters:
+            - RewritePath=/api/customers(?<remaining>/?.*), /customers${remaining}
+        - id: flights-service
+          uri: lb://flights-service
+          predicates:
+            - Path=/api/flights/**
+          filters:
+            - RewritePath=/api/flights(?<remaining>/?.*), /flights${remaining}
+
+

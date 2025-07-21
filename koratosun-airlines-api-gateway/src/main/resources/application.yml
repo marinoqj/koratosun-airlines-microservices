@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+  cloud:
+    gateway:
+      default-filters:
+        - name: Retry
+          args:
+            retries: 1
+            statuses: SERVICE_UNAVAILABLE
+            methods: POST
+      routes:
+        - id: customers-service
+          uri: lb://customers-service
+          predicates:
+            - Path=/api/customers/**
+          filters:
+            - RewritePath=/api/customers(?<remaining>/?.*), /customers${remaining}
+        - id: flights-service
+          uri: lb://flights-service
+          predicates:
+            - Path=/api/flights/**
+          filters:
+            - RewritePath=/api/flights(?<remaining>/?.*), /flights${remaining}
+  kafka:
+    bootstrap-servers: 192.168.2.109:9092    
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+topic: customers
+        
+        

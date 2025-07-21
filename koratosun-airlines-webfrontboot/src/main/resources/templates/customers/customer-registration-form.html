@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head('List of customers')">
+
+
+</head>
+
+<body>
+
+<header th:replace="fragments/header :: header"></header>
+
+	<main class="main">
+		<div class="container" style="min-height: 90vh">
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+<div class="row">
+	<div class="col-md-12 text-end">			
+		<a th:href="@{/listCustomers}" class="texto-azul" style="text-decoration: none; cursor:pointer;"><i class="fas fa-arrow-circle-left"></i> &nbsp;&nbsp;Go back</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<h4 class="texto-azul"><i class="fa fa-user"></i>
+			<span>&nbsp;&nbsp;Registration form</span>
+		 </h4>						
+	</div>
+</div>
+<hr class="texto-azul">
+
+<div class="row" th:if="${message != null}">
+	<div class="col-md-12 text-center">			
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<span th:text="${message}"></span>
+		</div>
+	</div>
+</div>
+<br>
+
+  	<!-- Datos personales -->
+	<form th:action="${mode + 'Customer'}" th:object="${customerForm}" method="post">
+		<input type="hidden" th:field="*{idCustomer}"/>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Grid row -->
+				<div class="row">
+					<!-- Default input -->
+					<div class="form-group col-md-4">
+						<label for="name">Name</label><span class="form-text text-danger"> *</span>
+						<input type="text" class="form-control" th:field="*{name}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+					</div>
+					<!-- Default input -->
+					<div class="form-group col-md-4">
+						<label for="firstSurname">First Surname</label><span class="form-text text-danger"> *</span>
+						<input type="text" class="form-control" th:field="*{firstSurname}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('firstSurname')}" th:errors="*{firstSurname}"></span>
+					</div>
+					<!-- Default input -->
+					<div class="form-group col-md-4">
+						<label for="secondSurname">Second Surname</label>
+						<input type="text" class="form-control" th:field="*{secondSurname}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('secondSurname')}" th:errors="*{secondSurname}"></span>
+					</div>
+				</div>
+				<br>
+				<!-- Grid row -->
+				<div class="row">
+					<!-- Default input -->
+					<div class="form-group col-md-4">
+						<label for="address">Address</label><span class="form-text text-danger"> *</span>
+						<input type="text" class="form-control" th:field="*{address}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+					</div>
+					<!-- Default input -->
+					<div class="form-group col-md-4">
+						<label for="municipality">Municipality</label><span class="form-text text-danger"> *</span>
+						<input type="text" class="form-control" th:field="*{municipality}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('municipality')}" th:errors="*{municipality}"></span>
+					</div>
+					<!-- Default input -->
+					<div class="form-group col-md-2">
+						<label for="postalCode">Postal code</label>
+						<input type="text" class="form-control" th:field="*{postalCode}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></span>
+					</div>
+					<!-- Default input -->
+					<div class="form-group col-md-2">
+						<label for="phone">Phone</label>
+						<input type="text" class="form-control" th:field="*{phone}">
+						<span class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+					</div>					
+				</div>
+				<br>							
+				<div class="row">
+					<div class="form-group col-md-12 align-self-end text-end">
+							<a th:href="@{/listCustomers}"  class="btn btn-secondary btn-sm px-4">Cancel</a>
+							&nbsp;&nbsp;
+							<button class="btn btn-primary btn-sm" type="submit">Save</button>
+					</div>		
+				</div>	
+				<!-- Extended default form grid -->
+			</div>
+		</div>
+	</form>
+
+
+
+
+</div>
+<!-- Fin container -->
+<br>
+</main>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+
+</body>
+</html>

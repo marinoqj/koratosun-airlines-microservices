@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: customers-service-service
+  labels:
+    app: koratosun-airlines 
+spec:
+  ports:
+    - port: 8091
+      targetPort: 8091
+  selector:
+      app: koratosun-airlines
+      tier: microservices
+     

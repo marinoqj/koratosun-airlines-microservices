@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head('Koratosun Airlines')">
+
+</head>
+
+<body>
+
+<header th:replace="fragments/header :: header"></header>
+
+<main class="main">
+
+<form name="formulario" method="post">
+	<input type="hidden" name="idCustomer"/>
+	<input type="hidden" name="outboundFlight"/>
+	<input type="hidden" name="returnFlight"/>
+	<input type="hidden" name="outboundDate"/>
+	<input type="hidden" name="returnDate"/>
+	
+</form>
+
+	<br><br><br><br>
+	<!-- List of Routes -->
+	<section class="popular-routes py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-end">
+					<a th:href="@{/}" class="texto-azul" style="text-decoration: none; cursor:pointer;"><i class="fas fa-arrow-circle-left"></i> &nbsp;&nbsp;Go back</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-lg-6 mb-5 mb-lg-0">
+					<h4 class="text-secondary"><i class="fas fa-route"></i>&nbsp;&nbsp;List of routes</h4>
+				</div>
+				<hr class="text-secondary">
+				<br>
+			</div>
+			<div class="row" th:if="${!#lists.isEmpty(routes)}">
+				<div class="col-lg-6 col-sm- 12 border shadow py-3">
+					<table class="table table-borderless">
+						<thead>
+						<tr>
+							<th class="text-center" scope="col"><i class="fas fa-plane-departure"></i></th>
+							<th scope="col">From:</th>
+							<th  class="text-center" scope="col"><i class="fas fa-plane-arrival"></i></th>
+							<th scope="col">To:</th>
+							<th scope="col"><i class="far fa-calendar"></i> Dates:</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="text-center"><img width="50px" height="50px" th:src="@{'img/' + ${departure.replace(' ', '-')} + '.png'}" alt="Vuelo Ida"></td>
+							<td th:text=" ${departure}" />
+							<td class="text-center"><img width="50px" height="50px" th:src="@{'img/' + ${arrival.replace(' ', '-')} + '.png'}" alt="Vuelo Llegada"></td>
+							<td th:text="${arrival}" />
+							<td th:text="|${departingTime} - ${arrivingTime}|" />
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+			<!-- Inicio del bucle de Rutas -->
+			<th:block th:each="route : ${routes}">
+				<div class="row mt-2" th:if="${!#lists.isEmpty(routes)}">
+					<div class="col-12 mb-3">
+						<div class="p-3 theme-border-radius border shadow-sm">
+							<div class="row justify-content-between align-items-center">
+								<div class="col-xl-4 col-lg-6">
+									<div class="row align-items-center">
+										<div class="col-sm-auto square bg-primary-subtle rounded-pill rounded-pill text-primary py-2"  th:text="${route.outboundFlight.codFlight}">
+										</div>
+										<div class="col">
+											<div class="row align-items-center">
+												<div class="col-auto">
+													<div class="fs-6" th:text="${route.outboundFlight.departureTime}"></div>
+													<div class="small theme-text-accent-one" th:text="${route.outboundFlight.origin}"></div>
+												</div>
+												<div class="col text-center">
+													<div class="flightLine">
+														<div></div>
+														<div></div>
+													</div>
+													<div class="small theme-text-accent-two" th:text="|Duration: ${route.outboundFlight.duration}|"></div>
+												</div>
+												<div class="col-auto">
+													<div class="fs-6" th:text="${route.outboundFlight.arrivalTime}"></div>
+													<div class="small theme-text-accent-one" th:text="${route.outboundFlight.destination}"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-4 col-lg-6 my-5 my-lg-0">
+									<div class="row align-items-center">
+										<div class="col-sm-auto square bg-success-subtle rounded-pill rounded-pill text-success py-2" th:text="${route.returnFlight.codFlight}">
+										</div>
+										<div class="col">
+											<div class="row align-items-center">
+												<div class="col-auto">
+													<div class="fs-6" th:text="${route.returnFlight.departureTime}"></div>
+													<div class="small theme-text-accent-one" th:text="${route.returnFlight.origin}"></div>
+												</div>
+												<div class="col text-center">
+													<div class="flightLine">
+														<div></div>
+														<div></div>
+													</div>
+													<div class="small theme-text-accent-two" th:text="|Duration: ${route.returnFlight.duration}|"></div>
+												</div>
+												<div class="col-auto">
+													<div class="fs-6" th:text="${route.returnFlight.arrivalTime}"></div>
+													<div class="small theme-text-accent-one" th:text="${route.returnFlight.destination}"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="d-flex justify-content-between">
+										<div class="me-4">
+											<div class="h5 font-weight-bold px-3" th:text="${route.outboundFlight.price + route.returnFlight.price} + ' €'"></div>
+										</div>
+										<!--<button class="btn btn-danger btn-sm py-2" th:data-codIda="${route.outboundFlight.codFlight}" th:data-codVuelta="${route.returnFlight.codFlight}" th:onclick="reservar(this.getAttribute('data-codIda') + '_' + this.getAttribute('data-codVuelta'))">Book Now</button>-->
+										<button class="btn btn-danger btn-sm py-2" th:onclick="customerRegistration()">Book Now</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</th:block>
+			<div class="row justify-content-center align-items-center text-center" th:if="${#lists.isEmpty(routes)}">
+				<div class="col-12 col-md-6">
+					<h4>Sorry, we couldn't find any routes.</h4>
+					<img th:src="@{img/sad_plane.png}" alt="image" class="img-fluid w-75">
+				</div>
+			</div>
+		</div>
+	</section>
+	<br><br>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<script>
+	function reservar(codigos) {
+		alert(codigos);
+	}
+	
+	function customerRegistration(){
+		document.formulario.action="showCustomerRegistration";
+		document.formulario.submit();
+	}
+	
+</script>
+
+</body>
+</html>

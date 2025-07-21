@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head('Koratosun Airlines')">
+
+</head>
+
+<body>
+
+<header th:replace="fragments/header :: header"></header>
+
+<main class="main">
+
+	<br><br><br><br>
+	<!-- Popular routes -->
+	<section id="popular-routes" class="popular-routes">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-6 mb-5 mb-lg-0">
+					<h4 class="fs-2 fw-bold theme-text-secondary mb-0">Popular Routes</h4>
+					<p class="mb-0 theme-text-accent-one">International &amp; Domestic flights</p>
+				</div>
+				<div class="col-12 col-lg-6 align-self-center justify-content-end d-flex">
+					<div class="d-flex">
+						<div class="dropdown-center">
+							<button class="btn recomended-btn" type="button">More <i class="bi bi-arrow-up-right ms-2"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<!-- popular routes stip -->
+				<div class="col-12 mb-3">
+					<div class="p-3 theme-border-radius border">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-xl-4 col-lg-6">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img th:src="@{img/1.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">14:00</div>
+												<div class="small theme-text-accent-one">DEL</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">4h 05m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">22:00</div>
+												<div class="small theme-text-accent-one">LHR</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-lg-6 my-5 my-lg-0">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/2.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">15:00</div>
+												<div class="small theme-text-accent-one">ABD</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">2h 00m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">17:00</div>
+												<div class="small theme-text-accent-one">AEH</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<div class="d-flex justify-content-between">
+									<div class="me-4">
+										<div class="fs-6">US$934</div>
+										<div class="small theme-text-accent-one">16 deals</div>
+									</div>
+									<a href="#" class="theme-btn-outline p-2">
+										View Deal <i class="bi bi-arrow-up-right ms-2"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- repetable -->
+				<div class="col-12 mb-3">
+					<div class="p-3 theme-border-radius border">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-xl-4 col-lg-6">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/5.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">12:00</div>
+												<div class="small theme-text-accent-one">AAR</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">2h 05m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">14:50</div>
+												<div class="small theme-text-accent-one">LHR</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-lg-6 my-5 my-lg-0">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/4.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">14:00</div>
+												<div class="small theme-text-accent-one">LHR</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">3h 00m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">17:00</div>
+												<div class="small theme-text-accent-one">AAR</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<div class="d-flex justify-content-between">
+									<div class="me-4">
+										<div class="fs-6">US$734</div>
+										<div class="small theme-text-accent-one">12 deals</div>
+									</div>
+									<a href="#" class="theme-btn-outline p-2">
+										View Deal <i class="bi bi-arrow-up-right ms-2"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- repetable -->
+				<div class="col-12 mb-3">
+					<div class="p-3 theme-border-radius border">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-xl-4 col-lg-6">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/1.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">20:00</div>
+												<div class="small theme-text-accent-one">DXB</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">2h 15m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">22:15</div>
+												<div class="small theme-text-accent-one">LHR</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-lg-6 my-5 my-lg-0">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/3.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">14:00</div>
+												<div class="small theme-text-accent-one">LHR</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">2h 20m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">18:50</div>
+												<div class="small theme-text-accent-one">DXB</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<div class="d-flex justify-content-between">
+									<div class="me-4">
+										<div class="fs-6">US$534</div>
+										<div class="small theme-text-accent-one">20 deals</div>
+									</div>
+									<a href="#" class="theme-btn-outline p-2">
+										View Deal <i class="bi bi-arrow-up-right ms-2"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- repetable -->
+				<div class="col-12 mb-3">
+					<div class="p-3 theme-border-radius border">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-xl-4 col-lg-6">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/3.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">12:00</div>
+												<div class="small theme-text-accent-one">MUB</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">10h 05m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">22:05</div>
+												<div class="small theme-text-accent-one">LAS</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-lg-6 my-5 my-lg-0">
+								<div class="row align-items-center">
+									<div class="col-sm-auto">
+										<img class="size-40" th:src="@{img/4.png}" alt="image">
+									</div>
+									<div class="col">
+										<div class="row align-items-center">
+											<div class="col-auto">
+												<div class="fs-6">14:00</div>
+												<div class="small theme-text-accent-one">LAS</div>
+											</div>
+											<div class="col text-center">
+												<div class="flightLine">
+													<div></div>
+													<div></div>
+												</div>
+												<div class="small theme-text-accent-two">10h 00m- Nonstop</div>
+											</div>
+											<div class="col-auto">
+												<div class="fs-6">24:00</div>
+												<div class="small theme-text-accent-one">MUM</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto">
+								<div class="d-flex justify-content-between">
+									<div class="me-4">
+										<div class="fs-6">US$998</div>
+										<div class="small theme-text-accent-one">20 deals</div>
+									</div>
+									<a href="#" class="theme-btn-outline p-2">
+										View Deal <i class="bi bi-arrow-up-right ms-2"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- repetable -->
+			</div>
+		</div>
+	</section>
+	<!-- ./Popular routes Section -->
+
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>
