@@ -29,4 +29,4 @@ Components
 
 Description
 
-When app is running you can access to a web simulating an airline page for booking flights and buying tickets. If a new user make a reservation all the information about it is saved and at the same time an event is triggered with the customer data. These data can be used for differents microservices with different purposes like marketing, loyalty programs and more.
+When app is running you can access to a web simulating an airline page for booking flights and buying tickets. If a new user make a reservation all the information about it is saved and at the same time an event is triggered with the customer data. These data can be used by differents microservices with different purposes like marketing, loyalty programs and more.
