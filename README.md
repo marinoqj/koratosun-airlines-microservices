@@ -11,18 +11,22 @@ This is a demo app built with microservices architecture. It uses different patt
 Besides that, there is a Kafka server which enables communication using messages.
 
 
-Prerrequisitos
+Prerrequisites
 
-* MySQL
-* Servidor Kafka : Contenedor docker de la imagen apache/kafka. Se arranca en localhost:9092 (habría que configurarla para que acepte llamadas por IP).Para configurarlo se utiliza la herramienta web Kadeck
-* Repositorio Git para almacenar la configuración
+* MySQL datbase
+* Kafka server: For demo purpose the app is using a docker container from image apache/kafka. It is listening on localhost:9092 (configuration to accept calls using kafka's server IP is needed).To config kafka we are using Kadeck web tool.
+* Git repository to use CasC (Configuration as Code)
 
-Componentes
+Components
 
-* config-server (8888): se utiliza para cargar la configuración del resto de microservicios
-* api-gateway (8080): es la pasarela que une los el front con los microservicios
-* discovery-server (8761): servidor eureka que registra todos los microservicios y permite el acceso transparente a los mismos
-* customers-service (8091): microservicio que gestiona los clientes
-* flights-service (8090): microservicio que gestiona los vuelos
-* webfrontboot (8877): aplicación spring boot con thymeleaf y bootstrap que aporta la UI de la app
-* servidor kafka (9092): a través del topic "customers" se gestiona el alta de un nuevo cliente cuando se produce una reserva
+* config-server (8888): centralized configuration of all the microservices that make up the application
+* api-gateway (8080): entry point acting as an intermediary between client and microservices
+* discovery-server (8761): enables microservices to dynamically locate and communicate with each other within the application
+* customers-service (8091): microservice that manages clients
+* flights-service (8090): microservice that manages flights
+* webfrontboot (8877): spring boot application with Thymeleaf and Bootstrap that provides the app's UI
+* servidor kafka (9092): through the "customers" topic, the registration of a new customer is managed when a reservation is made.
+
+Description
+
+When app is running you can access to a web simulating an airline page for booking flights and buying tickets. If a new user make a reservation all the information about it is saved and at the same time an event is triggered with the customer data. These data can be used for differents microservices with different purposes like marketing, loyalty programs and more.
